@@ -201,98 +201,23 @@ export function EnhancedFamilyGraph({
   }
 
   return (
-    <div className="relative bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden" style={{ height }}>
-      {/* Controls Panel */}
-      <div className="absolute top-4 left-4 z-10 bg-white/95 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-gray-200">
-        <div className="flex items-center gap-3 mb-3">
-          <h3 className="font-semibold text-gray-900">Network Explorer</h3>
-          <motion.button
-            className={`p-2 rounded-lg transition-colors ${animationPlaying ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`}
-            onClick={() => setAnimationPlaying(!animationPlaying)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {animationPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-          </motion.button>
-        </div>
-        
-        {/* Search */}
-        <div className="relative mb-3">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Search families..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        
-        {/* Filter */}
-        <div className="flex items-center gap-2 mb-3">
-          <Filter className="w-4 h-4 text-gray-500" />
-          <select
-            value={connectionFilter}
-            onChange={(e) => setConnectionFilter(e.target.value)}
-            className="text-sm border border-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="all">All Relations</option>
-            <option value="blood">Blood Relations</option>
-            <option value="marriage">Marriage</option>
-            <option value="friendship">Friendship</option>
-            <option value="community">Community</option>
-          </select>
-        </div>
-        
-        {/* Reset */}
-        <motion.button
-          className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm py-2 px-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
-          onClick={() => {
-            setSelectedFamily(null)
-            setSearchTerm('')
-            setConnectionFilter('all')
-            setConnectionPhase(0)
-          }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          <RotateCcw className="w-4 h-4" />
-          Reset View
-        </motion.button>
-      </div>
-
-      {/* Stats Panel */}
-      {showStats && (
-        <motion.div
-          className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-gray-200"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-            <Star className="w-4 h-4 text-yellow-500" />
-            Network Stats
-          </h3>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between gap-4">
-              <span className="text-gray-600">Families:</span>
-              <span className="font-medium text-blue-600">{networkStats.totalFamilies}</span>
-            </div>
-            <div className="flex justify-between gap-4">
-              <span className="text-gray-600">Connections:</span>
-              <span className="font-medium text-green-600">{networkStats.totalConnections}</span>
-            </div>
-            <div className="flex justify-between gap-4">
-              <span className="text-gray-600">Avg/Family:</span>
-              <span className="font-medium text-purple-600">{networkStats.averageConnections}</span>
-            </div>
-            <div className="flex justify-between gap-4">
-              <span className="text-gray-600">Verified:</span>
-              <span className="font-medium text-orange-600">{networkStats.verifiedPercentage}%</span>
-            </div>
-          </div>
-        </motion.div>
-      )}
+    <div className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 rounded-2xl shadow-xl border border-gray-100 overflow-hidden flex items-center justify-center" style={{ height }}>
+      {/* Floating Animation Control */}
+      <motion.button
+        className={`absolute top-6 right-6 z-20 p-3 rounded-full shadow-lg backdrop-blur-sm transition-all ${
+          animationPlaying 
+            ? 'bg-red-500/90 text-white hover:bg-red-600' 
+            : 'bg-green-500/90 text-white hover:bg-green-600'
+        }`}
+        onClick={() => setAnimationPlaying(!animationPlaying)}
+        whileHover={{ scale: 1.1, rotate: 10 }}
+        whileTap={{ scale: 0.9 }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1, type: "spring", stiffness: 200 }}
+      >
+        {animationPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+      </motion.button>
 
       {/* Main Graph Visualization */}
       <div className="relative w-full h-full p-8">
@@ -375,12 +300,6 @@ export function EnhancedFamilyGraph({
           })}
         </AnimatePresence>
 
-        {/* Cluster Labels */}
-        <div className="absolute top-8 left-8 text-xs font-medium text-gray-500">Mumbai Hub</div>
-        <div className="absolute top-8 right-8 text-xs font-medium text-gray-500">Delhi Hub</div>
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-gray-500">South India</div>
-        <div className="absolute bottom-8 left-8 text-xs font-medium text-gray-500">International</div>
-        <div className="absolute bottom-8 right-8 text-xs font-medium text-gray-500">Extended Network</div>
 
         {/* Connection Flow Animation */}
         {animationPlaying && visibleConnections.length > 0 && (
@@ -411,80 +330,57 @@ export function EnhancedFamilyGraph({
         )}
       </div>
 
-      {/* Selected Family Details */}
+      {/* Selected Family Details - Minimalist */}
       <AnimatePresence>
         {selectedFamily && (
           <motion.div
-            className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-2xl border border-gray-200"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            transition={{ duration: 0.3 }}
+            className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-gray-200 min-w-[300px]"
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.9 }}
+            transition={{ duration: 0.4, type: "spring", stiffness: 300 }}
           >
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">
-                  {selectedFamily.name} Family
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {selectedFamily.location.city}, {selectedFamily.location.country}
-                </p>
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-3">
+                <div 
+                  className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shadow-lg"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${selectedFamily.trustScore > 8.5 ? '#10b981' : '#3b82f6'}, ${selectedFamily.trustScore > 8.5 ? '#065f46' : '#1e40af'})` 
+                  }}
+                >
+                  {selectedFamily.name.charAt(0)}
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900">{selectedFamily.name} Family</h3>
+                  <p className="text-xs text-gray-500">{selectedFamily.location.city}</p>
+                </div>
               </div>
               <button
                 onClick={() => setSelectedFamily(null)}
-                className="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 transition-colors"
+                className="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 transition-all hover:rotate-90"
               >
                 ×
               </button>
             </div>
             
-            <div className="grid grid-cols-3 gap-4 text-sm">
-              <div className="text-center">
-                <div className="text-lg font-bold text-blue-600">{selectedFamily.memberCount}</div>
-                <div className="text-gray-500">Members</div>
+            <div className="flex justify-around text-center">
+              <div>
+                <div className="text-xl font-bold text-blue-600">{selectedFamily.memberCount}</div>
+                <div className="text-xs text-gray-500">Members</div>
               </div>
-              <div className="text-center">
-                <div className="text-lg font-bold text-green-600">{selectedFamily.trustScore}/10</div>
-                <div className="text-gray-500">Trust Score</div>
+              <div>
+                <div className="text-xl font-bold text-green-600">{selectedFamily.trustScore}</div>
+                <div className="text-xs text-gray-500">Trust</div>
               </div>
-              <div className="text-center">
-                <div className="text-lg font-bold text-purple-600">{getRelatedFamilies(selectedFamily.id).length}</div>
-                <div className="text-gray-500">Connections</div>
+              <div>
+                <div className="text-xl font-bold text-purple-600">{getRelatedFamilies(selectedFamily.id).length}</div>
+                <div className="text-xs text-gray-500">Links</div>
               </div>
-            </div>
-            
-            <div className="flex gap-2 mt-4">
-              <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-lg transition-colors">
-                View Family Tree
-              </button>
-              <button className="flex-1 bg-green-600 hover:bg-green-700 text-white text-sm py-2 px-4 rounded-lg transition-colors">
-                Connect Families
-              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Legend */}
-      <motion.div
-        className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-gray-200"
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1 }}
-      >
-        <div className="text-xs font-medium text-gray-700 mb-2">Relationship Types:</div>
-        <div className="space-y-1">
-          {Object.entries(connectionTypeColors).map(([type, color]) => (
-            <div key={type} className="flex items-center gap-2 text-xs">
-              <div 
-                className="w-3 h-1 rounded"
-                style={{ backgroundColor: color }}
-              />
-              <span className="capitalize text-gray-600">{type}</span>
-            </div>
-          ))}
-        </div>
-      </motion.div>
     </div>
   )
 }
