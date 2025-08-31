@@ -196,7 +196,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 hero-gradient">
         <div className="absolute inset-0 bg-black/20" />
