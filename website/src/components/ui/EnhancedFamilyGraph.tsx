@@ -79,7 +79,7 @@ const extendedConnections: Connection[] = [
   { id: 'conn_16', fromFamilyId: 'fam_13', toFamilyId: 'fam_14', relationshipType: 'friendship', specificRelation: 'university_friends', strength: 0.65, verified: false, establishedDate: '2022-01-10' }
 ]
 
-// Pre-calculated deterministic node positions (SSR-safe)
+// Pre-calsculated deterministic node positions (SSR-safe)
 const fixedNodePositions: Record<string, { x: number; y: number }> = {
   // Mumbai cluster (centerX - 200 = 200, centerY - 100 = 200)
   'fam_01': { x: 200, y: 120 },     // Sharma

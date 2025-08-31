@@ -19,7 +19,6 @@ import {
 const navigationSections = [
   { id: 'hero', label: 'Home', icon: Home },
   { id: 'problem-solution', label: 'Solution', icon: Users },
-  { id: 'interactive-demo', label: 'Demo', icon: Play },
   { id: 'network-visualization', label: 'Visualization', icon: Globe },
   { id: 'use-cases', label: 'Use Cases', icon: Network },
   { id: 'success-stories', label: 'Stories', icon: Star },

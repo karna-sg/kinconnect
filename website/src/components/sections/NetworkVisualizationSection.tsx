@@ -15,6 +15,49 @@ import {
   Maximize2
 } from 'lucide-react'
 
+// Fixed particle positions to avoid hydration mismatch
+const particlePositions = [
+  { left: 15.8, top: 23.4 },
+  { left: 78.2, top: 67.1 },
+  { left: 34.5, top: 12.8 },
+  { left: 89.3, top: 45.9 },
+  { left: 6.7, top: 78.2 },
+  { left: 52.4, top: 31.5 },
+  { left: 71.8, top: 89.6 },
+  { left: 23.1, top: 54.7 },
+  { left: 94.6, top: 18.3 },
+  { left: 41.2, top: 72.4 },
+  { left: 68.9, top: 9.7 },
+  { left: 12.5, top: 63.8 },
+  { left: 85.7, top: 37.2 },
+  { left: 58.3, top: 81.5 },
+  { left: 29.8, top: 26.9 },
+  { left: 73.4, top: 58.1 },
+  { left: 18.9, top: 84.3 },
+  { left: 92.1, top: 41.7 },
+  { left: 46.3, top: 15.2 },
+  { left: 64.7, top: 76.8 }
+]
+
+// Fixed line coordinates to avoid hydration mismatch  
+const lineCoordinates = [
+  { x1: 15.2, y1: 32.4, x2: 78.9, y2: 67.1 },
+  { x1: 34.7, y1: 89.3, x2: 52.1, y2: 23.8 },
+  { x1: 91.6, y1: 15.7, x2: 28.4, y2: 76.2 },
+  { x1: 8.3, y1: 54.9, x2: 73.5, y2: 41.6 },
+  { x1: 67.8, y1: 93.1, x2: 19.2, y2: 37.4 },
+  { x1: 45.9, y1: 12.8, x2: 82.3, y2: 68.7 },
+  { x1: 29.1, y1: 85.4, x2: 71.6, y2: 26.9 },
+  { x1: 93.7, y1: 48.2, x2: 14.8, y2: 79.5 },
+  { x1: 56.4, y1: 91.8, x2: 38.2, y2: 18.9 },
+  { x1: 87.5, y1: 33.6, x2: 21.7, y2: 74.3 },
+  { x1: 12.9, y1: 69.8, x2: 76.4, y2: 45.1 },
+  { x1: 49.3, y1: 88.7, x2: 64.8, y2: 22.5 },
+  { x1: 85.1, y1: 57.9, x2: 31.6, y2: 83.4 },
+  { x1: 18.7, y1: 94.2, x2: 72.9, y2: 36.8 },
+  { x1: 58.4, y1: 16.3, x2: 43.7, y2: 81.9 }
+]
+
 export function NetworkVisualizationSection() {
   const { elementRef, isVisible } = useScrollReveal({ threshold: 0.1 })
   const [isFullscreen, setIsFullscreen] = useState(false)
@@ -34,13 +77,13 @@ export function NetworkVisualizationSection() {
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Floating particles */}
-        {[...Array(20)].map((_, i) => (
+        {particlePositions.map((position, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${position.left}%`,
+              top: `${position.top}%`,
             }}
             animate={{
               y: [0, -30, 0],
@@ -48,9 +91,9 @@ export function NetworkVisualizationSection() {
               scale: [1, 1.2, 1],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: 3 + (i % 3), // Deterministic duration based on index
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: i * 0.1, // Deterministic delay based on index
             }}
           />
         ))}
@@ -63,13 +106,13 @@ export function NetworkVisualizationSection() {
               <stop offset="100%" style={{ stopColor: '#8b5cf6', stopOpacity: 0.3 }} />
             </linearGradient>
           </defs>
-          {[...Array(15)].map((_, i) => (
+          {lineCoordinates.map((line, i) => (
             <motion.line
               key={i}
-              x1={Math.random() * 100}
-              y1={Math.random() * 100}
-              x2={Math.random() * 100}
-              y2={Math.random() * 100}
+              x1={line.x1}
+              y1={line.y1}
+              x2={line.x2}
+              y2={line.y2}
               stroke="url(#bgGradient)"
               strokeWidth="1"
               initial={{ pathLength: 0, opacity: 0 }}

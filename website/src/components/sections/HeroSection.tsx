@@ -3,91 +3,9 @@
 import { motion, useAnimationControls } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Button, CTAButton, SecondaryButton } from '@/components/ui/Button'
-import { FamilyNode } from '@/components/ui/FamilyNode'
-import { ConnectionLine } from '@/components/ui/ConnectionLine'
-import { FamilyNode as FamilyNodeType, Connection } from '@/types'
-import { Play, ArrowDown } from 'lucide-react'
+import { ProfessionalEarthGlobe } from '@/components/ui/ProfessionalEarthGlobe'
+import { Play, ArrowDown, Globe } from 'lucide-react'
 
-// Sample family data for hero animation
-const sampleFamilies: FamilyNodeType[] = [
-  {
-    id: 'fam_1',
-    name: 'Sharma',
-    surname: 'Sharma',
-    location: { city: 'Mumbai', state: 'Maharashtra', country: 'India', coordinates: [19.0760, 72.8777] },
-    community: { religion: 'Hindu', language: ['Hindi', 'Marathi'] },
-    trustScore: 8.5,
-    verified: true,
-    memberCount: 5,
-    connections: []
-  },
-  {
-    id: 'fam_2',
-    name: 'Patel',
-    surname: 'Patel',
-    location: { city: 'Ahmedabad', state: 'Gujarat', country: 'India', coordinates: [23.0225, 72.5714] },
-    community: { religion: 'Hindu', language: ['Gujarati', 'Hindi'] },
-    trustScore: 9.2,
-    verified: true,
-    memberCount: 7,
-    connections: []
-  },
-  {
-    id: 'fam_3',
-    name: 'Singh',
-    surname: 'Singh',
-    location: { city: 'Delhi', state: 'Delhi', country: 'India', coordinates: [28.6139, 77.2090] },
-    community: { religion: 'Sikh', language: ['Punjabi', 'Hindi'] },
-    trustScore: 8.8,
-    verified: true,
-    memberCount: 6,
-    connections: []
-  },
-  {
-    id: 'fam_4',
-    name: 'Kumar',
-    surname: 'Kumar',
-    location: { city: 'Bangalore', state: 'Karnataka', country: 'India', coordinates: [12.9716, 77.5946] },
-    community: { religion: 'Hindu', language: ['Kannada', 'English'] },
-    trustScore: 7.9,
-    verified: false,
-    memberCount: 4,
-    connections: []
-  }
-]
-
-const sampleConnections: Connection[] = [
-  {
-    id: 'conn_1',
-    fromFamilyId: 'fam_1',
-    toFamilyId: 'fam_2',
-    relationshipType: 'blood',
-    specificRelation: 'cousin',
-    strength: 0.8,
-    verified: true,
-    establishedDate: '2020-01-15'
-  },
-  {
-    id: 'conn_2',
-    fromFamilyId: 'fam_2',
-    toFamilyId: 'fam_3',
-    relationshipType: 'friendship',
-    specificRelation: 'family_friend',
-    strength: 0.6,
-    verified: true,
-    establishedDate: '2021-05-20'
-  },
-  {
-    id: 'conn_3',
-    fromFamilyId: 'fam_1',
-    toFamilyId: 'fam_4',
-    relationshipType: 'community',
-    specificRelation: 'same_community',
-    strength: 0.5,
-    verified: false,
-    establishedDate: '2022-03-10'
-  }
-]
 
 const heroContainerVariants = {
   hidden: { opacity: 0 },
@@ -112,16 +30,16 @@ const textVariants = {
   }
 }
 
-const networkVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
+const globeVariants = {
+  hidden: { opacity: 0, scale: 0.8, rotateY: 45 },
   visible: {
     opacity: 1,
     scale: 1,
+    rotateY: 0,
     transition: {
-      duration: 1.2,
+      duration: 1.5,
       ease: [0.25, 0.46, 0.45, 0.94],
-      staggerChildren: 0.1,
-      delayChildren: 0.5
+      delay: 0.8
     }
   }
 }
@@ -152,7 +70,7 @@ const particlePositions = [
 
 export function HeroSection() {
   const [familyCount, setFamilyCount] = useState(0)
-  const [showNetwork, setShowNetwork] = useState(false)
+  const [showGlobe, setShowGlobe] = useState(false)
   const [mounted, setMounted] = useState(false)
   const controls = useAnimationControls()
 
@@ -178,22 +96,15 @@ export function HeroSection() {
     return () => clearInterval(timer)
   }, [mounted])
 
-  // Trigger network animation after text loads
+  // Trigger globe animation after text loads
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowNetwork(true)
+      setShowGlobe(true)
       controls.start('visible')
-    }, 1500)
+    }, 1200)
 
     return () => clearTimeout(timer)
   }, [controls])
-
-  const nodePositions = {
-    fam_1: { x: 200, y: 150 },
-    fam_2: { x: 350, y: 100 },
-    fam_3: { x: 500, y: 180 },
-    fam_4: { x: 300, y: 250 }
-  }
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -322,85 +233,29 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Interactive Network */}
+          {/* Right Column - Earth Globe */}
           <motion.div
-            variants={networkVariants}
+            variants={globeVariants}
             initial="hidden"
             animate={controls}
-            className="relative h-96 lg:h-[500px]"
+            className="relative h-[500px] lg:h-[600px] w-full"
           >
-            <div className="relative w-full h-full">
-              {/* Network Background */}
-              <div className="absolute inset-0 glass-effect rounded-2xl" />
-              
-              {showNetwork && (
-                <svg className="absolute inset-0 w-full h-full">
-                  {/* Connection Lines */}
-                  {sampleConnections.map((connection, index) => {
-                    const startPos = nodePositions[connection.fromFamilyId]
-                    const endPos = nodePositions[connection.toFamilyId]
-                    
-                    if (!startPos || !endPos) return null
-                    
-                    return (
-                      <motion.g
-                        key={connection.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: index * 0.3 + 1 }}
-                      >
-                        <ConnectionLine
-                          connection={connection}
-                          startPosition={startPos}
-                          endPosition={endPos}
-                          animated={true}
-                        />
-                      </motion.g>
-                    )
-                  })}
-                </svg>
+            <div className="relative w-full h-full flex items-center justify-center">
+
+              {/* Main Globe Container */}
+              {showGlobe && (
+                <motion.div
+                  className="w-full h-full flex items-center justify-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.5, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  <ProfessionalEarthGlobe
+                    height={typeof window !== 'undefined' ? (window.innerWidth < 1024 ? 500 : 600) : 600}
+                    width={typeof window !== 'undefined' ? (window.innerWidth < 1024 ? 500 : 600) : 600}
+                  />
+                </motion.div>
               )}
-
-              {/* Family Nodes */}
-              {showNetwork && sampleFamilies.map((family, index) => {
-                const position = nodePositions[family.id]
-                if (!position) return null
-
-                return (
-                  <motion.div
-                    key={family.id}
-                    className="absolute transform -translate-x-1/2 -translate-y-1/2"
-                    style={{
-                      left: position.x,
-                      top: position.y
-                    }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      delay: index * 0.2 + 0.5,
-                      duration: 0.6,
-                      ease: [0.25, 0.46, 0.45, 0.94]
-                    }}
-                  >
-                    <FamilyNode
-                      family={family}
-                      size="lg"
-                      interactive={true}
-                      animationDelay={0}
-                    />
-                  </motion.div>
-                )
-              })}
-
-              {/* Interaction Hints */}
-              <motion.div
-                className="absolute bottom-4 right-4 text-white/60 text-sm"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 3 }}
-              >
-                Click any family to explore connections →
-              </motion.div>
             </div>
           </motion.div>
         </div>

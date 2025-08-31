@@ -1,6 +1,5 @@
 import { HeroSection } from '@/components/sections/HeroSection'
 import { ProblemSolutionSection } from '@/components/sections/ProblemSolutionSection'
-import { InteractiveDemoSection } from '@/components/sections/InteractiveDemoSection'
 import { NetworkVisualizationSection } from '@/components/sections/NetworkVisualizationSection'
 import { UseCasesSection } from '@/components/sections/UseCasesSection'
 import { SuccessStoriesSection } from '@/components/sections/SuccessStoriesSection'
@@ -11,7 +10,6 @@ export default function Home() {
     <main className="min-h-screen">
       <HeroSection />
       <ProblemSolutionSection />
-      <InteractiveDemoSection />
       <NetworkVisualizationSection />
       <UseCasesSection />
       <SuccessStoriesSection />
