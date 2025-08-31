@@ -15,10 +15,10 @@ interface InnovativeConnectionLineProps {
 
 const getConnectionColor = (type: Connection['relationshipType'], strength: number) => {
     const colors = {
-        blood: '#e11d48',     // Red
-        marriage: '#f59e0b',  // Gold
-        friendship: '#3b82f6', // Blue
-        community: '#10b981'   // Green
+        blood: '#2F4F4F',     // Dark slate - main streets
+        marriage: '#FF69B4',  // Pink - romantic paths
+        friendship: '#4682B4', // Steel blue - neighborhood sidewalks
+        community: '#32CD32'   // Lime green - park trails
     }
 
     const baseColor = colors[type]
@@ -39,21 +39,21 @@ const generateCurvedPath = (
     const dy = end.y - start.y
     const distance = Math.sqrt(dx * dx + dy * dy)
 
-    // Different curve styles based on relationship type
-    let controlPointOffset = distance * 0.3
+    // Different path styles based on relationship type
+    let controlPointOffset = distance * 0.2
 
     if (type === 'blood') {
-        // Blood relations get more pronounced curves
-        controlPointOffset = distance * 0.4
+        // Blood relations get straight paths like main streets
+        controlPointOffset = distance * 0.1
     } else if (type === 'marriage') {
-        // Marriage gets heart-like curves
-        controlPointOffset = distance * 0.35
+        // Marriage gets curved paths like romantic garden paths
+        controlPointOffset = distance * 0.3
     } else if (type === 'friendship') {
-        // Friendship gets gentle curves
+        // Friendship gets winding paths like neighborhood sidewalks
         controlPointOffset = distance * 0.25
     } else {
-        // Community gets subtle curves
-        controlPointOffset = distance * 0.2
+        // Community gets meandering paths like park trails
+        controlPointOffset = distance * 0.35
     }
 
     const midX = start.x + dx / 2

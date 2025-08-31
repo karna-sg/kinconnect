@@ -272,64 +272,6 @@ export function InnovativeFamilyGraph({
                     })}
                 </AnimatePresence>
 
-                {/* Family Details Panel */}
-                <AnimatePresence>
-                    {selectedFamily && (
-                        <motion.div
-                            className="absolute top-6 left-6 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-white/20 max-w-sm"
-                            initial={{ opacity: 0, x: -20, scale: 0.9 }}
-                            animate={{ opacity: 1, x: 0, scale: 1 }}
-                            exit={{ opacity: 0, x: -20, scale: 0.9 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                                    {selectedFamily.name.charAt(0)}
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-gray-900">{selectedFamily.name} Family</h3>
-                                    <p className="text-sm text-gray-600 flex items-center gap-1">
-                                        <MapPin className="w-3 h-3" />
-                                        {selectedFamily.location.city}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-sm text-gray-600">Trust Score</span>
-                                    <div className="flex items-center gap-1">
-                                        <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                                        <span className="font-semibold">{selectedFamily.trustScore.toFixed(1)}</span>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center justify-between">
-                                    <span className="text-sm text-gray-600">Members</span>
-                                    <div className="flex items-center gap-1">
-                                        <Users className="w-4 h-4 text-blue-500" />
-                                        <span className="font-semibold">{selectedFamily.memberCount}</span>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center justify-between">
-                                    <span className="text-sm text-gray-600">Verified</span>
-                                    <div className="flex items-center gap-1">
-                                        <Shield className="w-4 h-4 text-green-500" />
-                                        <span className="font-semibold text-green-600">Yes</span>
-                                    </div>
-                                </div>
-
-                                <div className="pt-3 border-t border-gray-200">
-                                    <p className="text-sm text-gray-600">
-                                        <strong>Connections:</strong> {selectedConnections.length} active relationships
-                                    </p>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
                 {/* Connection Legend */}
                 <motion.div
                     className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20"
@@ -337,23 +279,23 @@ export function InnovativeFamilyGraph({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.5, duration: 0.6 }}
                 >
-                    <h4 className="text-sm font-semibold text-gray-900 mb-3">Connection Types</h4>
+                    <h4 className="text-sm font-semibold text-gray-900 mb-3">Neighborhood Paths</h4>
                     <div className="space-y-2">
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                            <span className="text-xs text-gray-600">Blood Relations</span>
+                            <div className="w-3 h-3 bg-slate-700 rounded-full"></div>
+                            <span className="text-xs text-gray-600">Main Streets (Blood)</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                            <span className="text-xs text-gray-600">Marriage</span>
+                            <div className="w-3 h-3 bg-pink-500 rounded-full"></div>
+                            <span className="text-xs text-gray-600">Garden Paths (Marriage)</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                            <span className="text-xs text-gray-600">Friendship</span>
+                            <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                            <span className="text-xs text-gray-600">Sidewalks (Friendship)</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                            <span className="text-xs text-gray-600">Community</span>
+                            <span className="text-xs text-gray-600">Park Trails (Community)</span>
                         </div>
                     </div>
                 </motion.div>
