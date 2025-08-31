@@ -238,7 +238,7 @@ export function HeroSection() {
             variants={globeVariants}
             initial="hidden"
             animate={controls}
-            className="relative h-[500px] lg:h-[600px] w-full"
+            className="relative h-[70vh] lg:h-[80vh] w-full"
           >
             <div className="relative w-full h-full flex items-center justify-center">
 
@@ -251,8 +251,8 @@ export function HeroSection() {
                   transition={{ delay: 1.5, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
                   <ProfessionalEarthGlobe
-                    height={typeof window !== 'undefined' ? (window.innerWidth < 1024 ? 500 : 600) : 600}
-                    width={typeof window !== 'undefined' ? (window.innerWidth < 1024 ? 500 : 600) : 600}
+                    height={typeof window !== 'undefined' ? Math.min(window.innerHeight * 0.7, window.innerWidth < 1024 ? window.innerHeight * 0.6 : window.innerHeight * 0.75) : 600}
+                    width={typeof window !== 'undefined' ? Math.min(window.innerWidth * 0.45, window.innerWidth < 1024 ? window.innerWidth * 0.9 : window.innerWidth * 0.5) : 600}
                   />
                 </motion.div>
               )}
