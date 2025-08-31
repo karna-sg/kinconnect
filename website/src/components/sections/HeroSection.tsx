@@ -139,126 +139,28 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Text Content */}
-          <motion.div
-            variants={heroContainerVariants}
-            initial="hidden"
-            animate="visible"
-            className="text-center lg:text-left"
-          >
-            {/* Brand */}
+        {/* Full Width Earth Globe - 100% of Hero Section */}
+        <motion.div
+          variants={globeVariants}
+          initial="hidden"
+          animate={controls}
+          className="w-full h-screen relative"
+        >
+          {/* Main Globe Container - Full Screen */}
+          {showGlobe && (
             <motion.div
-              variants={textVariants}
-              className="flex items-center justify-center lg:justify-start gap-3 mb-8"
+              className="w-full h-full flex items-center justify-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.5, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                <span className="text-2xl">🌐</span>
-              </div>
-              <h1 className="text-3xl font-bold text-white">KinConnect</h1>
+              <ProfessionalEarthGlobe
+                height={typeof window !== 'undefined' ? window.innerHeight : 800}
+                width={typeof window !== 'undefined' ? window.innerWidth : 1200}
+              />
             </motion.div>
-
-            {/* Main Headline */}
-            <motion.div variants={textVariants} className="mb-6">
-              <h2 className="text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-                Your Family Network.
-                <br />
-                <span className="gradient-text bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                  Reimagined.
-                </span>
-              </h2>
-              <p className="text-xl text-white/90 italic font-light">
-                "Where every family connection tells a story"
-              </p>
-            </motion.div>
-
-            {/* Subtitle */}
-            <motion.p
-              variants={textVariants}
-              className="text-xl text-white/80 mb-8 leading-relaxed"
-            >
-              <span className="font-semibold text-white">DISCOVER. CONNECT. STRENGTHEN.</span>
-              <br />
-              Your Extended Family Network
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div
-              variants={textVariants}
-              className="flex flex-col sm:flex-row gap-4 mb-8"
-            >
-              <CTAButton
-                className="bg-white text-blue-600 hover:bg-gray-100 shadow-xl"
-                icon={<span>🚀</span>}
-              >
-                Start Free
-              </CTAButton>
-              <SecondaryButton
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-blue-600"
-                icon={<Play className="w-5 h-5" />}
-              >
-                Watch Demo
-              </SecondaryButton>
-            </motion.div>
-
-            {/* Trust Indicators */}
-            <motion.div
-              variants={textVariants}
-              className="flex flex-col sm:flex-row items-center gap-4 text-sm text-white/70"
-            >
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                100% Free to Start
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                No Credit Card
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                2-Min Setup
-              </div>
-            </motion.div>
-
-            {/* Live Counter */}
-            <motion.div
-              variants={textVariants}
-              className="mt-8 p-4 glass-effect rounded-lg"
-            >
-              <div className="text-white/80 text-sm mb-1">Connecting families worldwide</div>
-              <div className="text-2xl font-bold text-white">
-                {familyCount.toLocaleString()}+ families
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column - Earth Globe */}
-          <motion.div
-            variants={globeVariants}
-            initial="hidden"
-            animate={controls}
-            className="relative h-[70vh] lg:h-[80vh] w-full"
-          >
-            <div className="relative w-full h-full flex items-center justify-center">
-
-              {/* Main Globe Container */}
-              {showGlobe && (
-                <motion.div
-                  className="w-full h-full flex items-center justify-center"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.5, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                >
-                  <ProfessionalEarthGlobe
-                    height={typeof window !== 'undefined' ? Math.min(window.innerHeight * 0.7, window.innerWidth < 1024 ? window.innerHeight * 0.6 : window.innerHeight * 0.75) : 600}
-                    width={typeof window !== 'undefined' ? Math.min(window.innerWidth * 0.45, window.innerWidth < 1024 ? window.innerWidth * 0.9 : window.innerWidth * 0.5) : 600}
-                  />
-                </motion.div>
-              )}
-            </div>
-          </motion.div>
-        </div>
+          )}
+        </motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
