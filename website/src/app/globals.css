@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+/* KinConnect Design System - Stripe-inspired */
+:root {
+  /* Base colors */
+  --background: #ffffff;
+  --foreground: #171717;
+  
+  /* Animation timings - Stripe-inspired easing */
+  --hover-transition: 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --enter-transition: 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --exit-transition: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --spring-transition: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* Family connection colors */
+  --blood-relation: #e11d48;     /* Red for blood family */
+  --marriage-relation: #f59e0b;  /* Gold for marriage */
+  --friend-relation: #3b82f6;    /* Blue for friends */
+  --community-relation: #10b981; /* Green for community */
+  
+  /* Brand colors */
+  --primary: #2563eb;      /* Trust blue */
+  --primary-light: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --secondary: #f97316;    /* Warm orange */
+  --secondary-light: #fb923c;
+  --secondary-dark: #ea580c;
+  
+  /* Gradients - Stripe-inspired */
+  --hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --card-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --connection-gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  --trust-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  
+  /* Shadows for depth */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Interactive shadows */
+  --card-shadow: var(--shadow-md);
+  --card-shadow-hover: var(--shadow-xl);
+  --button-shadow: var(--shadow-sm);
+  --button-shadow-hover: var(--shadow-lg);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --primary: #3b82f6;
+    --primary-light: #60a5fa;
+    --primary-dark: #1d4ed8;
+  }
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.9); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+@keyframes drawLine {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes pulse-gentle {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Component classes - Stripe-inspired */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: var(--button-shadow);
+  transition: all var(--hover-transition);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  box-shadow: var(--button-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: var(--button-shadow);
+  transition: all var(--hover-transition);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--secondary-dark);
+  box-shadow: var(--button-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.family-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  box-shadow: var(--card-shadow);
+  transition: all var(--hover-transition);
+  transform-origin: center;
+}
+
+.family-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-4px) scale(1.02);
+}
+
+.family-node {
+  transition: all var(--hover-transition);
+  cursor: pointer;
+}
+
+.family-node:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.connection-line {
+  stroke-dasharray: 5, 5;
+  animation: drawLine 1.5s ease-in-out forwards;
+}
+
+.trust-indicator {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--trust-gradient);
+  color: white;
+  animation: pulse-gentle 2s infinite;
+}
+
+.gradient-text {
+  background: var(--connection-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-gradient {
+  background: var(--hero-gradient);
+}
+
+.glass-effect {
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Scroll reveal effects */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all var(--enter-transition);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Focus states for accessibility */
+.btn-primary:focus,
+.btn-secondary:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .family-card {
+    padding: 16px;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  .family-node:hover {
+    transform: scale(1.05);
+  }
+}
